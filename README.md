@@ -23,7 +23,32 @@ git clone -b zero-ae git@github.com:wwwzrb/zero.git # https://github.com/wwwzrb/
 ```
 
 ### Directory Layout
-
+```
+├── background            # ib_read_bw/lat perf result in Cluster1/2 as an reference
+├── LICENSE
+├── README.md             # Instructions for AE
+├── sample-output         # Sample output in Cluster2 as an reference
+│   ├── multiqp
+│   │   └── qp-traffic.py # Script to process traffic output
+│   └── redis
+├── zero-overhead         # For hello world and redis case.
+│   ├── perf_data
+│   │   ├── redis
+│   │   └── single
+│   ├── script 
+│   │   ├── redis-zero
+│   │   └── single-zero
+│   └── temp              # Excutable Zero framework and ported application.
+└── zero-scalability      # For distibuted monitoring.
+    ├── config
+    │   ├── host_list
+    │   └── host_list.bk
+    ├── perf_data
+    │   └── multiqp
+    ├── script
+    │   └── multiqp
+    └── temp              # Excutable Zero framework and ported application.
+```
 
 ## Evaluation
 For the ease of artifact evluation (AE), we divide AE into three cases.

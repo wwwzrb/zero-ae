@@ -11,3 +11,4 @@ zero-scalability/perf_data/multiqp/receiver/*
 zero-scalability/perf_data/multiqp/sender/*
 !zero-scalability/perf_data/multiqp/receiver/log.txt
 !zero-scalability/perf_data/multiqp/sender/log.txt
+zero-scalability/script/multiqp-zero/info.txt
