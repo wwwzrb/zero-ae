@@ -17,5 +17,5 @@ for(( i=0;i<${host_num};i++)) do
 	ip=${ip_prefix}${ip_array_pm[i]}
 	echo "$ip"
     sshpass ssh ${user}@$ip "cd ${remote_path}/${folder_name}/script/multiqp-zero; sh -x zero-clean.sh" 
-	sshpass ssh ${user}@${ip} "rm -rf ${remote_path}" # clean folder if needed
+	# sshpass ssh ${user}@${ip} "rm -rf ${remote_path}" # clean folder if needed
 done

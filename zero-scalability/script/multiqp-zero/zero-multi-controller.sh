@@ -8,7 +8,7 @@ quota=$5
 
 path_prefix=~/zero-ae/zero-scalability
 
-${path_prefix}/temp/agent_controller -g 3 -n ${host_num} -t ${sample_interval} -q ${quota} &
+${path_prefix}/temp/agent_controller -g 3 -n ${host_num} -t ${sample_interval} -q ${quota} -e ${path_prefix} &
 
 sleep_time=0.5
 sleep_ms=500
