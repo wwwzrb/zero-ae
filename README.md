@@ -5,21 +5,29 @@ This repository holds the artifact of the paper "Zero Overhead Monitoring for Cl
 
 ## System Specification
 ### Environment
+The experiments in this paer is coducted in the following two clusters, named as Cluster1 and Cluster2, respectively.   
+<img src="/background/ArtifactSubmission.png" alt="Deployment">
 
 ### Hardware Dependency
+Zero relies on RDMA NICs, e.g., Mellanox CX4-6.  
+While both IB and RoCE is supported, we recommand RoCEv1/2 protocol for the ease of ethernet deployment.   
+Zero is supported by both virtualization (SR-IOV in Cluster1) or bare-metal (Cluster2) enviroment. 
 
 ### Software Dependency
+Zero depends on Mellanox [libibverbs](https://github.com/gpudirect/libibverbs).   
+If your machine can run [perftest](https://github.com/gpudirect/libibverbs), it should works well with Zero.   
 
 ## Setup
 
 ### Install Dependencies
 
+
 ### Prepare Zero
-We recommand that you work on the root directory of current user. Otherwise you will need to manually change the default **path_prefix** defined in our scripts.
+We recommend that you work on the root directory of current user, i.e., `~\`. Otherwise you will need to manually change the default **path_prefix** defined in our scripts.
 
 ```
 cd ~
-git clone -b zero-ae git@github.com:wwwzrb/zero.git # https://github.com/wwwzrb/zero.git
+git clone -b zero-ae git@github.com:wwwzrb/zero-ae.git # https://github.com/wwwzrb/zero-ae.git
 ```
 
 ### Directory Layout
@@ -31,7 +39,7 @@ git clone -b zero-ae git@github.com:wwwzrb/zero.git # https://github.com/wwwzrb/
 │   ├── multiqp
 │   │   └── qp-traffic.py # Script to process traffic output
 │   └── redis
-├── zero-overhead         # For hello world and redis case.
+├── zero-overhead         # For overhead evaluation.
 │   ├── perf_data
 │   │   ├── redis
 │   │   └── single
@@ -41,7 +49,7 @@ git clone -b zero-ae git@github.com:wwwzrb/zero.git # https://github.com/wwwzrb/
 │   └── temp              # Excutable Zero framework and ported application.
 └── zero-scalability      # For distibuted monitoring.
     ├── config
-    │   ├── host_list
+    │   ├── host_list     # Auto generated host_list by script
     │   └── host_list.bk
     ├── perf_data
     │   └── multiqp
@@ -128,13 +136,13 @@ Prepare Zero at one machine with IP as the monitoring controller.
 cd ~/zero-ae/zero-scalability/script/multiqp-zero
 ./zero-multi-scp.sh 8 # copy to 8 phyhosts; ./zero-multi-scp.sh phyhost
 ```
-3. Determine parameter according to your deployment.
-In our cluster2, the ECN is set with signle threshold of ~1000KB, denotes as thr.  
+3. Determine parameter according to your deployment.   
+In our cluster2, the ECN is set with single threshold of ~1000KB, denotes as thr.  
 The number of phyhosts is 8.  
 The number of virhosts is 8-128.  
-The number of monitored hosts is pyhosts x virhosts = 64-1024.
-The quota is determined by thr/host. 
-In our practice, the quota is set to 4-16 x 4KB. Note that the quota can be larger that thr/host with many non-perfect synchronized QP connections.
+The number of monitored hosts is pyhosts x virhosts = 64-1024.   
+The quota is determined by thr/host.   
+In our practice, the quota is set to 4-16 x 4KB. Note that the quota can be larger that thr/host with many non-perfect synchronized QP connections.  
 
 #### Run tests
 * Run Zero at all agent via the controller (via password-free sshpass):
@@ -151,13 +159,13 @@ cd ~/zero-ae/zero-scalability/script/multiqp-zero
 # Zero controller will exit automatically.
 ```
 
-Note controller needs to run after agent register all MRs. 
+Note controller needs to run after agent register all MRs.     
 
 Note that the control plane incurs high latency with many connections, we recommand no more than 512 hosts in your test. We will further optimize our control plane via parallel QP connection build-up and initilization.
 
 #### Output
-As agents are distributed across many machines, its output is omitted.
-The controller output is written to `~/zero-ae/zero-scalability/perf_data/multiqp/receiver`.
+As agents are distributed across many machines, its output is omitted.   
+The controller output is written to `~/zero-ae/zero-scalability/perf_data/multiqp/receiver`.  
 
 
 ## License
