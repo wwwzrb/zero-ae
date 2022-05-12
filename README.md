@@ -129,7 +129,7 @@ cd ~/zero-ae/zero-scalability/script/multiqp-zero
 ./zero-multi-scp.sh 8 # copy to 8 phyhosts; ./zero-multi-scp.sh phyhost
 ```
 3. Determine parameter according to your deployment.
-In our cluster2, the ECN is set with signle threshold of ~1000KB, denotes as thr.  
+In our cluster2, the ECN is set with single threshold of ~1000KB, denotes as thr.  
 The number of phyhosts is 8.  
 The number of virhosts is 8-128.  
 The number of monitored hosts is pyhosts x virhosts = 64-1024.

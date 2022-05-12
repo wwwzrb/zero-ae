@@ -89,11 +89,11 @@ def plot_traffic(res, axis_label, name):
     ax.set_yticks([i for i in range(0, 17000, 2000)])
     ax.set_yticklabels([i for i in range(0, 17000, 2000)], fontproperties=font)
 
-    # 设置x轴和y轴的标签
+    # set the label of x-axis and y-axis
     plt.xlabel(axis_label[0], fontproperties=font)
     plt.ylabel(axis_label[1], fontproperties=font)
 
-    # 设置图例
+    # set legend 
     ph_legend, = ax.plot(np.NaN, np.NaN, color='none')
     ax.legend([lines[0], lines[1]], [labels[0], labels[1]],
               loc='upper center',
@@ -111,7 +111,7 @@ font.set_size(20)
 # font.set_name('Arial')
 font.set_name('Times New Roman')
 font.set_weight('bold')
-fmts = ['png', 'pdf']
+fmts = ['png']
 
 
 qp_num = [64]
