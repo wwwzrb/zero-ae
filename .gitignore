@@ -1,0 +1,13 @@
+zero-overhead/perf_data/single/receiver/*
+zero-overhead/perf_data/single/sender/*
+zero-overhead/perf_data/redis/receiver/*
+zero-overhead/perf_data/redis/sender/*
+!zero-overhead/perf_data/single/receiver/log.txt
+!zero-overhead/perf_data/single/sender/log.txt
+!zero-overhead/perf_data/redis/receiver/log.txt
+!zero-overhead/perf_data/redis/sender/log.txt
+
+zero-scalability/perf_data/multiqp/receiver/*
+zero-scalability/perf_data/multiqp/sender/*
+!zero-scalability/perf_data/multiqp/receiver/log.txt
+!zero-scalability/perf_data/multiqp/sender/log.txt
