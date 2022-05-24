@@ -2,7 +2,7 @@
 
 sample_time=$1
 instance_num=$2
-ip=$3
+ip="192.168.10.20"
 
 path_prefix=~/zero-ae/zero-overhead
 

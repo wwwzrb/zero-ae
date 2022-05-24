@@ -7,7 +7,6 @@ size=$4
 quota=$5
 
 path_prefix=~/zero-ae/zero-scalability
-
 ${path_prefix}/temp/agent_controller -g 3 -n ${host_num} -t ${sample_interval} -q ${quota} -e ${path_prefix} &
 
 sleep_time=0.5
@@ -33,5 +32,7 @@ mv $tmp_file $file
 kill -9 $(pidof agent_controller)
 echo "agent_controller killed"
 
-kill -9 $(pidof rdma_monitor)
-echo "rdma_monitor killed"
+# kill -9 $(pidof rdma_monitor)
+# echo "rdma_monitor killed"
+
+sh ${path_prefix}/script/multiqp-zero/visualize.sh ${host_num} ${sample_interval} ${num} ${size} ${quota} ${path_prefix}

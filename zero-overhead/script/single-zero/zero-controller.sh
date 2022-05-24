@@ -3,7 +3,7 @@
 sample_time=$1
 instance_num=$2
 size=$3 # size will be multiplied with 1K
-ip=$4
+ip="192.168.10.20"
 
 path_prefix=~/zero-ae/zero-overhead
 
