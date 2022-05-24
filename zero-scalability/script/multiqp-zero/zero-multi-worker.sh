@@ -31,3 +31,5 @@ for(( i=0;i<${qp_num};i++)) do
 done
 
 cat ${config_file}
+
+echo "agent prepared..."

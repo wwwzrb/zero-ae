@@ -33,19 +33,11 @@ cd ~
 git clone -b zero-ae git@github.com:wwwzrb/zero-ae.git # https://github.com/wwwzrb/zero-ae.git
 ```
 
-### Provided Test Environment
-For the ease of AE, we also provide a temporary test environment.   
-All the dependencies and preparations are done in advance.   
-So you can begin with "Run tests" and skip all preparation steps.   
-
-For deployment without depending on the provided environment, please refer to the standalone [README](https://github.com/wwwzrb/zero-ae/blob/zero-ae/README.sa.md) for more details.
-
 ### Directory Layout
 ```
 ├── background            # ib_read_bw/lat perf result in Cluster1/2 as an reference
 ├── LICENSE
-├── README.md             # Instructions for provided deployment
-├── README.sa.md          # Instructions for standalone deployment
+├── README.md             # Instructions for AE
 ├── sample-output         # Sample output in Cluster2 as an reference
 │   ├── multiqp
 │   │   └── qp-traffic.py # Script to process traffic output
@@ -86,7 +78,7 @@ Evaluation of Zero in distributed monitoring.
 |Total Host Num:    |host               | Total number of agents managed by controller, which equals to phyhost x virhost.|
 |Physical Host Num: |phyhost            | The number of physicl hosts.|
 |Virtual Host Num:  |virhost            | The number of virtual hosts (VM/container) on each physical host.|
-|Sampling Interval: |interval (in ms)   | Fixed period of monitoring.|
+|Sampling Interval: |interval (in us)   | Fixed period of monitoring.|
 |Instance:          |instance           | The number of MRs/instances to monitor.|
 |Size:              |size (in KB)       | Size of each block.|
 |Quota:             |quota (n x 4KB)    | The credit n in number of pages, each page is 4KB.|
@@ -96,85 +88,53 @@ Evaluation of Zero in distributed monitoring.
 #### Preparation
 Prepare Zero at two machines with IP1 and IP, as the monitoring agent and controller respectively.
 #### Run tests
-You can skip the preparation and start from this step with our test environment.
-All you need to do is log in to the master node.
-
-* Log in to the master node:
-```
-ssh review@123.57.223.31  # Log in Jump Server.
-ssh review@compute047     # Log in master node from Jump Server.
-su root                   # Change to root user, as MR registeration has page protection.
-                          # Open two windows at the master node for Zero agent and controller respectively.
-                          # Zero agent and controller are initiated from master node via remote ssh (password-free sshpass).
-``` 
-
-* Agent:
+* At the agent side:
 ```
 cd ~/zero-ae/zero-overhead/script/single-zero 
-./zero-remote-worker.sh 1000 10 4                       # Montoring 10 x 4KB data with 1s interval.
-                                                        # ./zero-remote-worker.sh interval instance size 
+./zero-worker.sh 1000 10 4                      # Montoring 10 x 4KB data with 1s interval; 
+                                                # ./zero-worker.sh interval instance size 
+./zero-clean.sh                                 # Zero agent works in blocking mode and need to be released manually after each run
+```
+
+* At the controller side:
+```
+cd ~/zero-ae/zero-overhead/script/single-zero
+./zero-controller.sh 1000 10 4 192.168.10.20    # Montoring 10 x 4KB data with 1s interval from IP 192.168.10.20
+                                                # ./zero-controller.sh interval instance size IP1  
+                                                # Zero controller will exit automatically.
 ```
 
 Note that the controller needs to be launched after the agent is prepared, e.g., all MRs of metrics are registered via the control plane.  
-Note that we only perf agent CPU for a short while, as the agent is blocked after all metrics are registered.
-<img src="/background/single-agent.png" alt="Agent">
 
-* Controller:
-```
-cd ~/zero-ae/zero-overhead/script/single-zero
-./zero-controller.sh 1000 10 4      # Montoring 10 x 4KB data with 1s interval.
-                                    # ./zero-controller.sh interval instance size  
-```
-<img src="/background/single-controller.png" alt="Controller">
-
-* Clean：
-```
-./zero-remote-clean.sh              # Zero agent works in blocking mode and needs to be released manually after each run.
-                                    # Zero controller will exit automatically.
-```
+Note that we only perf Zero agent CPU for a short while, as the agent is blocked after all metrics are registered.
 
 #### Output
-The output example is shown in the above figures.
-The raw output file is written to `~/zero-ae/zero-overhead/perf_data/single`.
+The agent output is written to `~/zero-ae/zero-overhead/perf_data/single/sender`, at the agent side.    
+The controller output is written to `~/zero-ae/zero-overhead/perf_data/single/receiver`, at the controller side. 
 
 ### Zero Overhead
 #### Preparation
 Prepare Zero at two machines with IP1 and IP, as the monitoring agent and controller respectively.
 #### Run tests
-
-Just run the following scripts from the master node with the provided environment.
-
-* Agent:
+* At the agent side:
 ```
 cd ~/zero-ae/zero-overhead/script/redis-zero 
-./zero-remote-worker.sh 1000 10                 # Montoring 10 x Redis instances with 1s interval.
-                                                # ./zero-remote-worker.sh interval instance                  
+./zero-worker.sh 1000 10                        # Montoring 10 x Redis instances with 1s interval
+                                                # ./zero-worker.sh interval instance
+./zero-clean.sh                                 # Zero agent works in blocking mode and need to be released manually after each run
 ```
 
-Wait until the agent is prepared:
-<img src="/background/redis-agent.png" alt="Agent">
-
-* Controller:
+* At the controller side:
 ```
 cd ~/zero-ae/zero-overhead/script/redis-zero
-./zero-controller.sh 1000 10                    # Montoring 10 x Redis instances with 1s interval.
-                                                # ./zero-controller.sh interval instance size 
+./zero-controller.sh 1000 10 192.168.10.20      # Montoring 10 x Redis instances with 1s interval from IP 192.168.10.20
+                                                # ./zero-controller.sh interval instance size IP1  
                                                 # Zero controller will exit automatically.
 ``` 
 
-<img src="/background/redis-controller.png" alt="Controller">
-
-* Clean：
-```
-./zero-remote-clean.sh                          # Zero agent works in blocking mode and needs to be released manually after each run.
-                                                # Zero controller will exit automatically.
-```
-
-<img src="/background/redis-clean.png" alt="Clean">
-
 #### Output
-The output example is shown in the above figures.
-The raw output file is written to `~/zero-ae/zero-overhead/perf_data/redis`.
+The agent output is written to `~/zero-ae/zero-overhead/perf_data/redis/sender`, at the agent side.    
+The controller output is written to `~/zero-ae/zero-overhead/perf_data/redis/receiver`, at the controller side.   
 
 ### Zero Scalability
 #### Preparation
@@ -185,7 +145,7 @@ Prepare Zero at one machine with IP as the monitoring controller.
 2. Distribute `~/zero-ae/zero-scalability` folder to all agents. The IP1-n need to be configured in the script according to your machine IP.
 ```
 cd ~/zero-ae/zero-scalability/script/multiqp-zero
-./zero-multi-scp.sh 8                               # copy to 8 phyhosts.
+./zero-multi-scp.sh 8                               # copy to 8 phyhosts; 
                                                     # ./zero-multi-scp.sh phyhost
 ```
 3. Determine parameters according to your deployment.
@@ -198,55 +158,29 @@ Note that the quota can be larger than thr/host with many non-perfect synchroniz
 In our practice, the quota is set to 1-4 x 4KB, i.e., 4/2/1/1/1 with 64/128/256/512/1024 hosts. 
 
 #### Run tests
-
-Just run the following scripts from the master node with the provided environment.
-
-* Agent:
+* Run Zero at all agents via the controller (via password-free sshpass):
 ```
 cd ~/zero-ae/zero-scalability/script/multiqp-zero
-./zero-multi-worker.sh 8 8 32 4                     # Launch Zero agent at 8 phyhosts x 8 virhosts = 64 hosts, each hosts have 32 instances x 4KB = 128 KB data.
+./zero-multi-worker.sh 8 8 32 4                     # Launch Zero agent at 8 phyhosts x 8 virhosts = 64 hosts, each hosts have 32 instances x 4KB = 128 KB data 
                                                     # ./zero-multi-worker.sh phyhost virhost instance size
+./zero-multi-clean.sh 8                             # Manually exit Zero agent on all phyhosts
+                                                    # ./zero-multi-clean.sh phyhost
 ```
 
-Wait until the agent is prepared:
-<img src="/background/multi-agent.png" alt="Agent">
-
-* Controller:
+* Run Zero controller:
 ```
 cd ~/zero-ae/zero-scalability/script/multiqp-zero
-./zero-multi-controller.sh 64 1000 32 4 4           # Launch Zero controller to monitor 64 hosts with 1s interval, 32 instances x 4KB = 128 KB data on each host, 4 x 4KB = 16KB quota.
+./zero-multi-controller.sh 64 1000 32 4 4           # Launch Zero controller to monitor 64 hosts with 1s interval, 32 instances x 4KB = 128 KB data on each host, 4 x 4KB = 16KB quota
                                                     # ./zero-multi-controller.sh host interval instance size quota
+                                                    # Zero controller will exit automatically.
 ```   
 
 Note that the control plane incurs high latency with many connections, we recommend no more than 512 hosts in your test. We will further optimize our control plane via parallel QP connection build-up and initialization.
 
-<img src="/background/multi-controller.png" alt="Controller">
-
-
-* Clean:
-```
-./zero-multi-clean.sh 8                             # Manually exit Zero agent on all phyhosts
-                                                    # ./zero-multi-clean.sh phyhost
-                                                    # Zero controller will exit automatically.
-```
-
-<img src="/background/multi-clean.png" alt="Clean">
-
 #### Output
-The output example is shown in the above figures.
-The raw output file is written to `~/zero-ae/zero-scalability/perf_data/multiqp/receiver`.
+As agents are distributed across many hosts, their outputs are omitted.   
+The controller output is written to `~/zero-ae/zero-scalability/perf_data/multiqp/receiver`, at the controller side.    
 
-We also provide a script to visualize the throughput variations in each repeated run.   
-Since graph visualization is not supported in the server, you can replace the `~/zero-ae/sample-output/multiqp/receiver` directory with the above output.   
-Then download the `sample-output` to your local machine and execute `qp-traffic.py` under `sample-output/multiqp`.
-```
-rm -rf ~/zero-ae/sample-output/multiqp/receiver                                             # delete sample output.
-cp -r ~/zero-ae/zero-scalability/perf_data/multiqp/receiver ~/zero-ae/sample-output/multiqp # replace sample output with the latest one.
-                                                                                            # download to your local machine.
-python3 ./qp-traffic.py                                                                     # excute under sample-output/multiqp
-                                                                                            # generate sample-output/multiqp/qp-traffic.png in your local machine.
-```
-<img src="sample-output/multiqp/qp-traffic.png" alt="Traffic">
 
 ## License
 This repository is licensed under the GNU General Public License v3.0, found in the LICENSE file. 
