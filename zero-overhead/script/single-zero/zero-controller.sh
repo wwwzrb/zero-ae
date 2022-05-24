@@ -7,7 +7,7 @@ ip=$4
 
 path_prefix=~/zero-ae/zero-overhead
 
-${path_prefix}/temp/agent_controller -g 3 -t $sample_time -e $path_prefix $ip &
+${path_prefix}/temp/agent_controller -g 3 -t ${sample_time} -e ${path_prefix} $ip &
 
 # sleep 1
 
@@ -33,3 +33,5 @@ mv $tmp_file $file
 
 kill -9 $(pidof agent_controller)
 echo "agent_controller killed"
+
+sh ${path_prefix}/script/visualize.sh ${sample_time} ${instance_num} ${size} single

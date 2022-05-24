@@ -32,3 +32,5 @@ mv $tmp_file $file
 
 kill -9 $(pidof agent_controller)
 echo "agent_controller killed"
+
+sh ${path_prefix}/script/visualize.sh ${sample_time} ${instance_num} redis

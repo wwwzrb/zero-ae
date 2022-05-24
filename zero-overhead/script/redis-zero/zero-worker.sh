@@ -35,5 +35,7 @@ repeat=20
 rm -rf $file
 sh ${path_prefix}/script/zero-cpu.sh $file $repeat $sleep_time &
 
+sleep 10
 
-
+echo "CPU perf result:"
+cat ${file}

@@ -128,7 +128,7 @@ zero_traffic_wq, zero_time_wq = read_traffic(zero_prefix, interval, num, size, q
 
 traffic_res = [zero_traffic_wq[0][0], zero_traffic_wq[0][1]]
 
-# 绘图
+# plot
 tab = plt.get_cmap('tab20')
 cNorm = colors.Normalize(vmin=0, vmax=tab.N)
 scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=tab)
