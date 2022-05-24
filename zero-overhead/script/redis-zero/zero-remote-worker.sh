@@ -3,7 +3,7 @@ sample_interval=$1
 server_num=$2
 
 user=root
-ip="192.168.10.20"
+ip="192.168.10.33"
 
 path_prefix=~/zero-ae
 folder_name=zero-overhead
