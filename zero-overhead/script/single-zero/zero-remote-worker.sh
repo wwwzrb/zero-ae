@@ -12,5 +12,5 @@ folder_name=zero-overhead
 local_path=${path_prefix}
 remote_path=${path_prefix}
 
-sshpass ssh ${user}@$ip "cd ${remote_path}/${folder_name}/script/single-zero; sh ./zero-worker.sh ${sample_interval} ${num} ${size} "
+sshpass ssh ${user}@$ip "cd ${remote_path}/${folder_name}/script/single-zero; sh ./zero-worker.sh ${sample_interval} ${num} ${size} &" &
 

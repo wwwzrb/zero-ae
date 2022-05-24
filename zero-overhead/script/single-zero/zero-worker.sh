@@ -25,5 +25,6 @@ sleep 1
 
 ${path_prefix}/temp/client_multi $num $size &
 
+echo "Agent Prepared..."
 
 

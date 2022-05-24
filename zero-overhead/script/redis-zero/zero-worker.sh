@@ -19,13 +19,6 @@ ${path_prefix}/temp/agent_worker -g 3 &
 
 sleep 1
 
-for ((i=0; i<server_num; i++))
-do
-	let "port=$start_port+$i"
-	${path_prefix}/temp/redis-server --port $port &
-	sleep 0.2
-done
-
 # sample zero agent cpu
 file=${path_prefix}/perf_data/redis/sender/cpu_${sample_interval}_${server_num}
 sleep_time=0.5
@@ -35,7 +28,11 @@ repeat=20
 rm -rf $file
 sh ${path_prefix}/script/zero-cpu.sh $file $repeat $sleep_time &
 
-sleep 10
+for ((i=0; i<server_num; i++))
+do
+	let "port=$start_port+$i"
+	${path_prefix}/temp/redis-server --port $port &
+	sleep 0.2
+done
 
-echo "CPU perf result:"
-cat ${file}
+echo "Agent Prepared..."
