@@ -97,16 +97,16 @@ You can skip the preparation and start from "Run tests" with the provided enviro
 #### Preparation  
 Prepare Zero at two machines with IP1 and IP, as the monitoring agent and controller respectively.
 #### Run tests
-All you need to do is log in to the master node.
+All you need to do is log in to the primary node.
 
-* Log in to the master node:
+* Log in to the primary node:
 We recommend that you log in from a [tmux](https://github.com/tmux/tmux/wiki) window to keep the session to avoid ssh session timeout after a short idle time.
 ```
 ssh review@123.57.223.31  # Log in Jump Server.
-ssh review@compute047     # Log in master node from Jump Server.
+ssh review@compute047     # Log in primary node from Jump Server.
 sudo su root              # Change to root user, as MR registeration has page protection.
-                          # Open two windows at the master node for Zero agent and controller respectively.
-                          # Zero agent and controller are initiated from master node via remote ssh (password-free sshpass).
+                          # Open two windows at the primary node for Zero agent and controller respectively.
+                          # Zero agent and controller are initiated from primary node via remote ssh (password-free sshpass).
 ``` 
 
 * Agent:
@@ -145,7 +145,7 @@ You can skip the preparation and start from "Run tests" with the provided enviro
 Prepare Zero at two machines with IP1 and IP, as the monitoring agent and controller respectively.
 #### Run tests
 
-Just run the following scripts from the master node with the provided environment.
+Just run the following scripts from the primary node with the provided environment.
 
 * Agent:
 ```
@@ -203,7 +203,7 @@ In our practice, the quota is set to 1-4 x 4KB, i.e., 4/2/1/1/1 with 64/128/256/
 
 #### Run tests
 
-Just run the following scripts from the master node with the provided environment.
+Just run the following scripts from the primary node with the provided environment.
 
 * Agent:
 ```
