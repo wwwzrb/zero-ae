@@ -103,7 +103,7 @@ All you need to do is log in to the master node.
 ```
 ssh review@123.57.223.31  # Log in Jump Server.
 ssh review@compute047     # Log in master node from Jump Server.
-su root                   # Change to root user, as MR registeration has page protection.
+sudo su root              # Change to root user, as MR registeration has page protection.
                           # Open two windows at the master node for Zero agent and controller respectively.
                           # Zero agent and controller are initiated from master node via remote ssh (password-free sshpass).
 ``` 
