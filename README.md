@@ -93,13 +93,14 @@ Evaluation of Zero in distributed monitoring.
 
 
 ### Hello World
-#### Preparation
+You can skip the preparation and start from "Run tests" with the provided environment.  
+#### Preparation  
 Prepare Zero at two machines with IP1 and IP, as the monitoring agent and controller respectively.
 #### Run tests
-You can skip the preparation and start from this step with our test environment.
 All you need to do is log in to the master node.
 
 * Log in to the master node:
+We recommend that you log in from a [tmux](https://github.com/tmux/tmux/wiki) window to keep the session to avoid ssh session timeout after a short idle time.
 ```
 ssh review@123.57.223.31  # Log in Jump Server.
 ssh review@compute047     # Log in master node from Jump Server.
@@ -132,12 +133,14 @@ cd ~/zero-ae/zero-overhead/script/single-zero
 ./zero-remote-clean.sh              # Zero agent works in blocking mode and needs to be released manually after each run.
                                     # Zero controller will exit automatically.
 ```
+<img src="/background/single-clean.png" alt="Clean">
 
 #### Output
 The output example is shown in the above figures.
 The raw output file is written to `~/zero-ae/zero-overhead/perf_data/single`.
 
 ### Zero Overhead
+You can skip the preparation and start from "Run tests" with the provided environment. 
 #### Preparation
 Prepare Zero at two machines with IP1 and IP, as the monitoring agent and controller respectively.
 #### Run tests
@@ -177,7 +180,8 @@ The output example is shown in the above figures.
 The raw output file is written to `~/zero-ae/zero-overhead/perf_data/redis`.
 
 ### Zero Scalability
-#### Preparation
+You can skip the preparation and start from "Run tests" with the provided environment. 
+#### Preparation 
 Prepare Zero at n machines with IP1-n as the monitoring agent, where n=8 in our Cluster2.   
 Prepare Zero at one machine with IP as the monitoring controller.
 

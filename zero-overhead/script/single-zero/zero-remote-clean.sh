@@ -12,3 +12,5 @@ local_path=${path_prefix}
 remote_path=${path_prefix}
 
 sshpass ssh ${user}@$ip "cd ${remote_path}/${folder_name}/script/single-zero; sh ./zero-clean.sh "
+
+echo "Remote agent process killed."

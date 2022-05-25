@@ -32,4 +32,4 @@ done
 
 cat ${config_file}
 
-echo "agent prepared..."
+echo "Agent prepared..."
