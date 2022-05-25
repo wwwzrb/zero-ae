@@ -99,7 +99,7 @@ Prepare Zero at two machines with IP1 and IP, as the monitoring agent and contro
 #### Run tests
 All you need to do is log in to the primary node.
 
-* Log in to the primary node:
+* Log in to the primary node:   
 We recommend that you log in from a [tmux](https://github.com/tmux/tmux/wiki) window to keep the session to avoid ssh session timeout after a short idle time.
 ```
 ssh review@123.57.223.31  # Log in Jump Server.
