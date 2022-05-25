@@ -102,10 +102,10 @@ All you need to do is log in to the primary node.
 * Log in to the primary node:   
 We recommend that you log in from a [tmux](https://github.com/tmux/tmux/wiki) window to keep the session to avoid ssh session timeout after a short idle time.
 ```
-ssh review@101.200.132.88  # Log in Jump Server.
-sudo su root              # Change to root user, as MR registeration has page protection.
-                          # Open two windows at the primary node for Zero agent and controller respectively.
-                          # Zero agent and controller are initiated from primary node via remote ssh (password-free sshpass).
+ssh review@101.200.132.88   # Log in primary node.
+sudo su root                # Change to root user, as MR registeration has page protection.
+                            # Open two windows at the primary node for Zero agent and controller respectively.
+                            # Zero agent and controller are initiated from primary node via remote ssh (password-free sshpass).
 ``` 
 
 * Agent:
