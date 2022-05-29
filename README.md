@@ -68,7 +68,7 @@ For deployment without depending on the provided environment, please refer to th
     ├── perf_data
     │   └── multiqp
     ├── script
-    │   └── multiqp
+    │   └── multiqp-zero
     └── temp              # Excutable Zero framework and ported application.
 ```
 
@@ -183,8 +183,8 @@ The raw output file is written to `~/zero-ae/zero-overhead/perf_data/redis`.
 
 #### Video Demonstration
 Since the kernel and eBPF cases rely on our proprietary kernel release of Linux, we can't provide the kernel image and the corresponding executable files in Artifact.
-Instead, we provide video demonstrations to show the functionality and partial results in the [kernel]() and [eBPF]() case studies.
-You can download and watch the videos for the kernel(proc) and eBPF cases.
+Instead, we provide video demonstrations to show the functionality and partial results in the [kernel](https://github.com/wwwzrb/zero-ae/blob/zero-ae/zero-overhead/video_demo/proc.mov) and [eBPF](https://github.com/wwwzrb/zero-ae/blob/zero-ae/zero-overhead/video_demo/ebpf.mov) case studies under `/zero-ae/zero-overhead/video_demo`.
+You can download and watch the videos for the kernel (proc) and eBPF cases.
 
 ### Zero Scalability
 You can skip the preparation and start from "Run tests" with the provided environment. 
