@@ -57,6 +57,9 @@ For deployment without depending on the provided environment, please refer to th
 │   ├── script 
 │   │   ├── redis-zero
 │   │   └── single-zero
+│   ├── video_demo
+│   │   ├── proc.mov      # Video demonstration of proc case
+│   │   └── ebpf.mov      # Video demonstration of ebpf case
 │   └── temp              # Excutable Zero framework and ported application.
 └── zero-scalability      # For distibuted monitoring.
     ├── config
@@ -74,7 +77,7 @@ For ease of artifact evaluation (AE), we divide AE into three cases.
 * **Hello World**       
 Basic example to demonstrate the working flow of Zero. 
 * **Zero Overhead**     
-Evaluation of Zero with typical applications, e.g., Redis.
+Evaluation of Zero with typical applications, e.g., Redis, proc, ebpf.
 * **Zero Scalability**  
 Evaluation of Zero in distributed monitoring.
 
@@ -177,6 +180,11 @@ cd ~/zero-ae/zero-overhead/script/redis-zero
 #### Output
 The output example is shown in the above figures.
 The raw output file is written to `~/zero-ae/zero-overhead/perf_data/redis`.
+
+#### Video Demonstration
+Since the kernel and eBPF cases rely on our proprietary kernel release of Linux, we can't provide the kernel image and the corresponding executable files in Artifact.
+Instead, we provide video demonstrations to show the functionality and partial results in the [kernel]() and [eBPF]() case studies.
+You can download and watch the videos for the kernel(proc) and eBPF cases.
 
 ### Zero Scalability
 You can skip the preparation and start from "Run tests" with the provided environment. 
