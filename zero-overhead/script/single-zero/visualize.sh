@@ -4,7 +4,7 @@ size=$3 # size will be multiplied with 1K
 case=$4
 
 user=root
-ip="192.168.10.33"
+ip="192.168.10.34"
 
 path_prefix=~/zero-ae
 folder_name=zero-overhead
